@@ -7,7 +7,7 @@ defineProps<{ memory?: Memory | null }>()
 <template>
   <RouterLink v-if="memory" :to="`/memories/${memory.id}`" class="soft-card favorite-memory">
     <img v-if="memory.cover_image_url" :src="memory.cover_image_url" alt="Ảnh kỷ niệm" />
-    <div><Star :size="18" /><span>Kỷ niệm yêu thích</span><strong>{{ memory.title }}</strong><p>{{ formatDate(memory.memory_date) }}</p></div>
+    <div><Star :size="18" /><span>Mảnh nhớ thương nhất</span><strong>{{ memory.title }}</strong><p>{{ formatDate(memory.memory_date) }}</p></div>
   </RouterLink>
-  <article v-else class="soft-card empty">Chưa có kỷ niệm yêu thích nào.</article>
+  <article v-else class="soft-card empty">Chưa có mảnh nhớ thương nhất nào.</article>
 </template>

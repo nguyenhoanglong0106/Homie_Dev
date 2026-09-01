@@ -1,8 +1,8 @@
-﻿import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '../pages/LoginPage.vue'
 import AppLayout from '../layouts/AppLayout.vue'
 import HomePage from '../pages/HomePage.vue'
-import TimelinePage from '../pages/TimelinePage.vue'
+import MemoriesPage from '../pages/MemoriesPage.vue'
 import MemoryDetailPage from '../pages/MemoryDetailPage.vue'
 import DiaryPage from '../pages/DiaryPage.vue'
 import MapPage from '../pages/MapPage.vue'
@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/', component: AppLayout, meta: { auth: true }, children: [
         { path: '', name: 'home', component: HomePage },
-        { path: 'timeline', name: 'timeline', component: TimelinePage },
+        { path: 'memories', name: 'memories', component: MemoriesPage },
         { path: 'memories/:id', name: 'memory-detail', component: MemoryDetailPage },
         { path: 'diary', name: 'diary', component: DiaryPage },
         { path: 'map', name: 'map', component: MapPage },

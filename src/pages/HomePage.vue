@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
-import LoveCounter from '../components/home/LoveCounter.vue'
+import { RouterLink } from 'vue-router'
+import { ArrowRight } from '@lucide/vue'
 import UpcomingDateCard from '../components/home/UpcomingDateCard.vue'
 import FavoriteMemoryCard from '../components/home/FavoriteMemoryCard.vue'
 import CurrentDistanceCard from '../components/home/CurrentDistanceCard.vue'
@@ -10,8 +11,7 @@ import { useMemoriesStore } from '../stores/memories'
 import { useDiariesStore } from '../stores/diaries'
 import { useSpecialDatesStore } from '../stores/specialDates'
 import { useLocationStore } from '../stores/location'
-import { countdownLabel, daysBetween, formatDate, greeting } from '../utils/date'
-import { formatDistance } from '../utils/distance'
+import { countdownLabel, formatDate, greeting } from '../utils/date'
 
 const couple = useCoupleStore()
 const memories = useMemoriesStore()
@@ -37,14 +37,14 @@ onMounted(async () => {
       <div class="avatar-pair"><img v-for="profile in couple.profiles" :key="profile.id" :src="profile.avatar_url || '/favicon.svg'" :alt="profile.display_name" /></div>
       <p>{{ greeting() }}</p><h1>{{ names }}</h1>
     </header>
-    <LoveCounter :days="daysBetween(couple.couple?.started_date)" :names="couple.couple?.name || 'Chúng mình'" />
+    <p v-if="couple.error" class="config-warning">{{ couple.error }}</p>
     <QuickActions />
     <div class="grid-two">
       <UpcomingDateCard v-if="upcoming" :title="upcoming.item.title" :countdown="upcoming.label" />
-      <CurrentDistanceCard :label="formatDistance(locations.distanceMeters)" />
+      <CurrentDistanceCard :meters="locations.distanceMeters" />
     </div>
     <FavoriteMemoryCard :memory="favorite" />
-    <section class="soft-card"><span>Gần đây</span><strong>{{ latestMemory?.title || 'Chưa có kỷ niệm nào' }}</strong><p>{{ latestMemory ? formatDate(latestMemory.memory_date) : 'Hãy lưu lại khoảnh khắc đầu tiên.' }}</p></section>
-    <section class="soft-card"><span>Nhật ký mới nhất</span><strong>{{ latestDiary?.title || 'Chưa có nhật ký' }}</strong><p>{{ latestDiary ? formatDate(latestDiary.diary_date) : 'Một dòng nhỏ cũng đủ làm ngày này đẹp hơn.' }}</p></section>
+    <RouterLink to="/memories" class="soft-card home-link-card"><span>Mảnh ký ức mới nhất</span><strong>{{ latestMemory?.title || 'Chưa có mảnh ký ức nào' }}</strong><p>{{ latestMemory ? formatDate(latestMemory.memory_date) : 'Mình ghi lại khoảnh khắc đầu tiên nhé.' }}</p><ArrowRight :size="18" /></RouterLink>
+    <section class="soft-card"><span>Lời thương gần nhất</span><strong>{{ latestDiary?.title || 'Chưa có lời nhắn nào' }}</strong><p>{{ latestDiary ? formatDate(latestDiary.diary_date) : 'Một dòng dịu dàng cũng đủ làm hôm nay ấm hơn.' }}</p></section>
   </section>
 </template>

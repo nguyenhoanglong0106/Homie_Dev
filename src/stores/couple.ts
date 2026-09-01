@@ -8,16 +8,19 @@ export const useCoupleStore = defineStore('couple', () => {
   const couple = ref<Couple | null>(null)
   const profiles = ref<Profile[]>([])
   const loading = ref(false)
+  const error = ref('')
   const partnerProfile = computed(() => profiles.value.find((profile) => profile.id !== myProfile.value?.id) ?? null)
 
   async function load() {
-    loading.value = true
+    loading.value = true; error.value = ''
     try {
       myProfile.value = await coupleService.getMyProfile()
       if (myProfile.value?.couple_id) {
         couple.value = await coupleService.getCouple(myProfile.value.couple_id)
         profiles.value = await coupleService.getProfiles(myProfile.value.couple_id)
       }
+    } catch {
+      error.value = 'Không tải được hồ sơ. Kiểm tra kết nối hoặc cấu hình Supabase.'
     } finally { loading.value = false }
   }
 
@@ -28,5 +31,5 @@ export const useCoupleStore = defineStore('couple', () => {
     if (index >= 0) profiles.value[index] = updated
   }
 
-  return { myProfile, couple, profiles, partnerProfile, loading, load, saveProfile }
+  return { myProfile, couple, profiles, partnerProfile, loading, error, load, saveProfile }
 })

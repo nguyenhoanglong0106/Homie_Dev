@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CalendarHeart, Home, Map, Plus, Settings, UserRound } from '@lucide/vue'
+import { HeartPulse, Home, Map, Settings, UserRound } from '@lucide/vue'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCoupleStore } from '../stores/couple'
@@ -10,11 +10,10 @@ const couple = useCoupleStore()
 const { isOnline } = useOnlineStatus()
 onMounted(() => { void couple.load() })
 const nav = [
-  { to: '/', label: 'Home', icon: Home },
-  { to: '/timeline', label: 'Timeline', icon: CalendarHeart },
-  { to: '/diary', label: 'Add', icon: Plus, add: true },
-  { to: '/map', label: 'Map', icon: Map },
-  { to: '/profile', label: 'Profile', icon: UserRound }
+  { to: '/', label: 'Nhà mình', icon: Home },
+  { to: '/memories', label: 'Thương nhớ', icon: HeartPulse },
+  { to: '/map', label: 'Gần nhau', icon: Map },
+  { to: '/profile', label: 'Chúng mình', icon: UserRound }
 ]
 </script>
 
@@ -25,7 +24,7 @@ const nav = [
       <RouterLink v-for="item in nav" :key="item.to" :to="item.to" class="side-link">
         <component :is="item.icon" :size="18" /> {{ item.label }}
       </RouterLink>
-      <RouterLink to="/settings" class="side-link"><Settings :size="18" /> Cài đặt</RouterLink>
+      <RouterLink to="/settings" class="side-link"><Settings :size="18" /> Góc riêng</RouterLink>
     </aside>
 
     <main class="app-main">
@@ -38,8 +37,8 @@ const nav = [
     </main>
 
     <nav class="bottom-nav" aria-label="Điều hướng chính">
-      <RouterLink v-for="item in nav" :key="item.to" :to="item.to" :class="['bottom-link', { active: route.path === item.to, add: item.add }]" :aria-label="item.label">
-        <component :is="item.icon" :size="item.add ? 24 : 20" />
+      <RouterLink v-for="item in nav" :key="item.to" :to="item.to" :class="['bottom-link', { active: route.path === item.to || (item.to !== '/' && route.path.startsWith(`${item.to}/`)) }]" :aria-label="item.label">
+        <component :is="item.icon" :size="20" />
         <span>{{ item.label }}</span>
       </RouterLink>
     </nav>

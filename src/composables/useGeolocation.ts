@@ -34,7 +34,8 @@ export function useGeolocation(onPosition: PositionHandler) {
       const payload = toPayload(position)
       if (!shouldSend(payload)) return
       lastSentAt = Date.now(); lastPayload = payload
-      await onPosition(payload)
+      try { await onPosition(payload) }
+      catch (err) { if (import.meta.env.DEV) console.error('Gui vi tri that bai', err) }
     }, (error) => {
       if (error.code === error.PERMISSION_DENIED) permission.value = 'denied'
       else if (error.code === error.TIMEOUT) permission.value = 'timeout'

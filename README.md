@@ -144,7 +144,7 @@ npm run preview
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
    - `VITE_GOOGLE_PHOTOS_ALBUM_URL`
-5. Deploy. File `public/_redirects` (chứa `/* /index.html 200`) đã có sẵn để SPA routing (Vue Router `createWebHistory`) hoạt động đúng khi truy cập trực tiếp vào các route con như `/timeline`, `/map`, ...
+5. Deploy. File `public/_redirects` (chứa `/* /index.html 200`) đã có sẵn để SPA routing (Vue Router `createWebHistory`) hoạt động đúng khi truy cập trực tiếp vào các route con như `/memories`, `/map`, ...
 
 ## 13. Bật Supabase Realtime cho `live_locations`
 
@@ -174,7 +174,7 @@ Kiểm tra lại (tùy chọn): vào **Database > Replication** trong Supabase D
 | Không thấy vị trí người còn lại | Kiểm tra cả 2 tài khoản đã bật "Chia sẻ vị trí", kiểm tra Realtime đã bật (bước 13), kiểm tra cả 2 profile cùng `couple_id`. |
 | Trình duyệt từ chối GPS | Vào cài đặt trình duyệt/site, cấp lại quyền Location cho domain, tải lại trang. |
 | Build lỗi type | Chạy `npm run build` để xem lỗi TypeScript cụ thể và sửa trực tiếp trong `src/`. |
-| Deploy Cloudflare bị 404 khi vào thẳng `/timeline`, `/map`,... | Kiểm tra file `public/_redirects` có được build ra `dist/_redirects` không (Vite tự động copy mọi thứ trong `public/`). |
+| Deploy Cloudflare bị 404 khi vào thẳng `/memories`, `/map`,... | Kiểm tra file `public/_redirects` có được build ra `dist/_redirects` không (Vite tự động copy mọi thứ trong `public/`). |
 
 ## 16. Giới hạn của vị trí realtime trên PWA
 
@@ -193,7 +193,7 @@ src/
   components/    common/ home/ memory/ diary/ map/
   composables/   useGeolocation, useRealtimeLocation, useDistance, useTheme, useOnlineStatus, useToast
   layouts/       AppLayout.vue (bottom nav mobile + sidebar desktop)
-  pages/         LoginPage, HomePage, TimelinePage, MemoryDetailPage, DiaryPage, MapPage, SpecialDatesPage, ProfilePage, SettingsPage
+  pages/         LoginPage, HomePage, MemoriesPage, MemoryDetailPage, DiaryPage, MapPage, SpecialDatesPage, ProfilePage, SettingsPage
   router/        route guard (redirect /login nếu chưa đăng nhập)
   services/      supabase.ts + *.service.ts (gọi Supabase trực tiếp, không qua backend riêng)
   stores/        Pinia store cho auth, couple, memories, diaries, specialDates, location

@@ -66,7 +66,7 @@ create table if not exists public.special_dates (
   created_by uuid not null references auth.users (id) default auth.uid(),
   created_at timestamptz not null default now()
 );
-ádasd
+
 create table if not exists public.live_locations (
   user_id uuid primary key references auth.users (id) on delete cascade,
   couple_id uuid not null references public.couples (id) on delete cascade,
