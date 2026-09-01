@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA fallback - can thiet de Vue Router (createWebHistory) hoat dong
+# khi truy cap truc tiep vao cac route con nhu /timeline, /map, /diary, ...
+/*    /index.html   200
